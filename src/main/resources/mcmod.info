@@ -1,0 +1,16 @@
+[
+{
+  "modid": "chaotickarma",
+  "name": "ChaoticKarma",
+  "description": "A karma system in Minecraft!",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["SatanicSanta"],
+  "credits": "SatanicSanta for creating it, kingluke_ for helping with ideas",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
