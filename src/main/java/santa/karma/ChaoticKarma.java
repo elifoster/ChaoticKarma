@@ -32,6 +32,7 @@ public class ChaoticKarma {
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
+        registerMobsToIgnore();
         registerNegativeDefaultEvents();
         registerPositiveDefaultEvents();
         registerPositiveDefaultPerks();
