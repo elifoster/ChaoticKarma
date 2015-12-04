@@ -1,0 +1,5 @@
+command.get=%s's current karma level is %d
+
+command.set.success=Set %d's karma level to %d
+command.set.fail.low=%d is too low of a karma level. Please be sure to use a value higher than %d.
+command.set.fail.high=%d is too high of a karma level. Please be sure to use a value lower than %d.

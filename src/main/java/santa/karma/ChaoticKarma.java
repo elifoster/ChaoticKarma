@@ -2,12 +2,13 @@ package santa.karma;
 
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import net.minecraft.entity.monster.*;
 import net.minecraftforge.common.MinecraftForge;
 import santa.karma.api.KarmaRegistry;
 import santa.karma.api.MobIgnoranceRegistry;
+import santa.karma.command.KarmaGetCommand;
+import santa.karma.command.KarmaSetCommand;
 import santa.karma.events.EventSpawner;
 import santa.karma.events.negative.LightningStrike;
 import santa.karma.events.positive.GiveGoods;
@@ -28,9 +29,6 @@ public class ChaoticKarma {
     public static final int MIN_KARMA = 0;
 
     @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent event) {}
-
-    @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         registerMobsToIgnore();
         registerNegativeDefaultEvents();
@@ -44,7 +42,10 @@ public class ChaoticKarma {
     }
 
     @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent event) {}
+    public void onServerStart(FMLServerStartingEvent event) {
+        event.registerServerCommand(new KarmaGetCommand());
+        event.registerServerCommand(new KarmaSetCommand());
+    }
 
     /**
      * Registers all of the default negative karma events included in the mod.
