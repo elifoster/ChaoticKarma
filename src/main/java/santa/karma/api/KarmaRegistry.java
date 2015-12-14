@@ -200,6 +200,7 @@ public class KarmaRegistry {
      * Registers a negative perk.
      * @param perk The Perk to register.
      * @param id The unique ID string for the perk.
+     * @param isEventHandler Whether to register the perk in the MCF EVENT_BUS.
      */
     public static void registerNegativePerk(KarmaPerkNegative perk, String id, boolean isEventHandler) {
         if (!perkNegatives.containsValue(perk)) {
