@@ -10,6 +10,7 @@ import santa.karma.player.ExtendedPlayer;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * Gives the player their new perk when their karma updates, if possible.
@@ -40,14 +41,18 @@ public class PerkApplier {
           .EXTENDEDPLAYER);
         ArrayList<KarmaPerkPositive> positive = nbt.positivePerks;
         ArrayList<KarmaPerkNegative> negative = nbt.negativePerks;
-        for (KarmaPerkPositive perk : positive) {
+        Iterator<KarmaPerkPositive> positiveIterator = positive.iterator();
+        Iterator<KarmaPerkNegative> negativeIterator = negative.iterator();
+        while (positiveIterator.hasNext()) {
+            KarmaPerkPositive perk = positiveIterator.next();
             if (perk.getRequiredKarmaLevel() > nbt.karma) {
-                perk.removePerk(event.player);
+                positiveIterator.remove();
             }
         }
-        for (KarmaPerkNegative perk : negative) {
+        while (negativeIterator.hasNext()) {
+            KarmaPerkNegative perk = negativeIterator.next();
             if (perk.getRequiredKarmaLevel() < nbt.karma) {
-                perk.removePerk(event.player);
+                negativeIterator.remove();
             }
         }
     }

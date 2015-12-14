@@ -201,10 +201,13 @@ public class KarmaRegistry {
      * @param perk The Perk to register.
      * @param id The unique ID string for the perk.
      */
-    public static void registerNegativePerk(KarmaPerkNegative perk, String id) {
+    public static void registerNegativePerk(KarmaPerkNegative perk, String id, boolean isEventHandler) {
         if (!perkNegatives.containsValue(perk)) {
             if (!perkNegatives.containsKey(id)) {
                 perkNegatives.put(id, perk);
+                if (isEventHandler) {
+                    MinecraftForge.EVENT_BUS.register(perk);
+                }
             } else {
                 FMLLog.bigWarning("Overlapping Karma Negative Perk IDs! Please report this to the" +
                   " mod developer!");

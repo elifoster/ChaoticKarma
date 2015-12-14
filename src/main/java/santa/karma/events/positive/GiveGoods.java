@@ -12,7 +12,7 @@ import java.util.Random;
 public class GiveGoods extends KarmaEventPositive {
     public GiveGoods() {
         this.setRequiredKarmaLevel(1800);
-        this.setKarmaChance(1200);
+        this.setKarmaChance(1500);
     }
 
     @Override

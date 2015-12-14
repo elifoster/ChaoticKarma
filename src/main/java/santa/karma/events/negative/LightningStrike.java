@@ -8,7 +8,7 @@ import santa.karma.api.KarmaEventNegative;
 public class LightningStrike extends KarmaEventNegative {
     public LightningStrike() {
         this.setRequiredKarmaLevel(200);
-        this.setKarmaChance(1200);
+        this.setKarmaChance(1500);
     }
 
     @Override

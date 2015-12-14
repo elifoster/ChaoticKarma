@@ -14,10 +14,7 @@ import santa.karma.events.negative.LightningStrike;
 import santa.karma.events.positive.GiveGoods;
 import santa.karma.handler.GainingKarmaHandler;
 import santa.karma.perks.PerkApplier;
-import santa.karma.perks.negative.mobignorance.LevelFourMobIgnorance;
-import santa.karma.perks.negative.mobignorance.LevelOneMobIgnorance;
-import santa.karma.perks.negative.mobignorance.LevelThreeMobIgnorance;
-import santa.karma.perks.negative.mobignorance.LevelTwoMobIgnorance;
+import santa.karma.perks.negative.MobIgnorance;
 import santa.karma.perks.positive.DoubleBoneMeal;
 import santa.karma.player.ExtendedPlayerInitializer;
 
@@ -62,14 +59,14 @@ public class ChaoticKarma {
     }
 
     private void registerNegativeDefaultPerks() {
-        KarmaRegistry.registerNegativePerk(new LevelOneMobIgnorance(),
-          "ChaoticKarma-LevelOneMobIgnorance");
-        KarmaRegistry.registerNegativePerk(new LevelTwoMobIgnorance(),
-          "ChaoticKarma-LevelTwoMobIgnorance");
-        KarmaRegistry.registerNegativePerk(new LevelThreeMobIgnorance(),
-          "ChaoticKarma-LevelThreeMobIgnorance");
-        KarmaRegistry.registerNegativePerk(new LevelFourMobIgnorance(),
-          "ChaoticKarma-LevelFourMobIgnorance");
+        KarmaRegistry.registerNegativePerk(new MobIgnorance((DEFAULT_KARMA / 4) * 3,
+          MobIgnoranceRegistry.levelOneMobs), "ChaoticKarma-LevelOneMobIgnorance", true);
+        KarmaRegistry.registerNegativePerk(new MobIgnorance((DEFAULT_KARMA / 2),
+          MobIgnoranceRegistry.levelTwoMobs), "ChaoticKarma-LevelTwoMobIgnorance", true);
+        KarmaRegistry.registerNegativePerk(new MobIgnorance((DEFAULT_KARMA / 4),
+          MobIgnoranceRegistry.levelThreeMobs), "ChaoticKarma-LevelThreeMobIgnorance", true);
+        KarmaRegistry.registerNegativePerk(new MobIgnorance(MIN_KARMA,
+          MobIgnoranceRegistry.levelFourMobs), "ChaoticKarma-LevelFourMobIgnorance", true);
     }
 
     /**
