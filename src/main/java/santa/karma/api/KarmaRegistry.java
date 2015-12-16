@@ -25,8 +25,14 @@ public class KarmaRegistry {
      */
     public static ArrayList<KarmaEventPositive> eventPositives = new ArrayList();
 
+    /**
+     * All of the registered positive perks.
+     */
     public static HashMap<String, KarmaPerkPositive> perkPositives = new HashMap();
 
+    /**
+     * All of the registered negative perks.
+     */
     public static HashMap<String, KarmaPerkNegative> perkNegatives = new HashMap();
 
     /**
@@ -46,6 +52,11 @@ public class KarmaRegistry {
         add(new ItemStack(Blocks.web));
         add(new ItemStack(Items.blaze_rod));
     }};
+
+    /**
+     * The entity classes that the SpawnMobHerd event can spawn.
+     */
+    public static ArrayList<Class> herdMobs = new ArrayList<Class>();
 
     /**
      * Adds karma to the player.
@@ -217,5 +228,13 @@ public class KarmaRegistry {
             FMLLog.severe("A mod is trying to register a negative ChaoticKarma perk twice. " +
               "Please report this to that mod's developer.");
         }
+    }
+
+    /**
+     * Registers a class as a herd mob for the SpawnMobHerd event.
+     * @param cls The entity class.
+     */
+    public static void registerHerdMob(Class cls) {
+        herdMobs.add(cls);
     }
 }

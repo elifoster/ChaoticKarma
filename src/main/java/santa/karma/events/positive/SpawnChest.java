@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
 import santa.karma.ChaoticKarma;
 import santa.karma.api.KarmaEventPositive;
+import santa.karma.util.MathHelper;
 
 import java.util.Random;
 
@@ -35,31 +36,25 @@ public class SpawnChest extends KarmaEventPositive {
 
     @Override
     public void doEvent(EntityPlayer player, World world) {
-        System.out.println("doing event");
         if (playerHasEnoughKarma(player)) {
-            System.out.println("has karma");
             Random random = new Random();
-            int x = (int) player.posX + random.nextInt(10 - 5);
+            int x = (int) player.posX + MathHelper.randomNegOrPos(10, random);
             int y = (int) player.posY;
-            int z = (int) player.posZ + random.nextInt(10 - 5);
+            int z = (int) player.posZ + MathHelper.randomNegOrPos(10, random);
             Block block = world.getBlock(x, y, z);
             if ((block == null || block.isAir(world, x, y, z)) &&
               world.getTileEntity(x, y, z) == null) {
-                System.out.println("block location is free");
                 world.setBlock(x, y, z, Blocks.chest);
                 String type = chestTypes[random.nextInt(chestTypes.length)];
                 WeightedRandomChestContent[] items = ChestGenHooks.getItems(type, random);
                 TileEntity tile = world.getTileEntity(x, y, z);
                 if (tile != null && tile instanceof TileEntityChest) {
-                    System.out.println("block location is chest tile");
                     int slot = 0;
                     for (WeightedRandomChestContent content : items) {
-                        System.out.println("looping");
                         ItemStack stack = content.theItemId;
                         int max = content.theMaximumChanceToGenerateItem;
                         int min = content.theMinimumChanceToGenerateItem;
                         if (random.nextInt(max) == min) {
-                            System.out.println("setting slot contents " + stack.getDisplayName());
                             ((TileEntityChest) tile).setInventorySlotContents(slot, stack);
                             slot++;
                         }

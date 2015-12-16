@@ -11,6 +11,7 @@ import santa.karma.command.KarmaGetCommand;
 import santa.karma.command.KarmaSetCommand;
 import santa.karma.events.EventSpawner;
 import santa.karma.events.negative.LightningStrike;
+import santa.karma.events.negative.SpawnMobHerd;
 import santa.karma.events.positive.GiveExperience;
 import santa.karma.events.positive.GiveGoods;
 import santa.karma.events.positive.SpawnChest;
@@ -30,6 +31,7 @@ public class ChaoticKarma {
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
         registerMobsToIgnore();
+        registerHerdMobs();
         registerNegativeDefaultEvents();
         registerPositiveDefaultEvents();
         registerPositiveDefaultPerks();
@@ -51,6 +53,7 @@ public class ChaoticKarma {
      */
     private void registerNegativeDefaultEvents() {
         KarmaRegistry.registerNegativeEvent(new LightningStrike());
+        KarmaRegistry.registerNegativeEvent(new SpawnMobHerd());
     }
 
     /**
@@ -102,5 +105,19 @@ public class ChaoticKarma {
         MobIgnoranceRegistry.registerLevelFour(EntityGiantZombie.class);
         MobIgnoranceRegistry.registerLevelFour(EntityWitch.class);
         MobIgnoranceRegistry.registerLevelFour(EntityEnderman.class);
+    }
+
+    /**
+     * Registers all of the mobs for the herd spawning event.
+     */
+    private void registerHerdMobs() {
+        KarmaRegistry.registerHerdMob(EntityBlaze.class);
+        KarmaRegistry.registerHerdMob(EntityCaveSpider.class);
+        KarmaRegistry.registerHerdMob(EntitySilverfish.class);
+        KarmaRegistry.registerHerdMob(EntitySkeleton.class);
+        KarmaRegistry.registerHerdMob(EntitySlime.class);
+        KarmaRegistry.registerHerdMob(EntitySpider.class);
+        KarmaRegistry.registerHerdMob(EntityWitch.class);
+        KarmaRegistry.registerHerdMob(EntityZombie.class);
     }
 }
