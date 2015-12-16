@@ -12,6 +12,7 @@ import santa.karma.command.KarmaSetCommand;
 import santa.karma.events.EventSpawner;
 import santa.karma.events.negative.LightningStrike;
 import santa.karma.events.positive.GiveGoods;
+import santa.karma.events.positive.SpawnChest;
 import santa.karma.handler.GainingKarmaHandler;
 import santa.karma.perks.PerkApplier;
 import santa.karma.perks.negative.MobIgnorance;
@@ -56,6 +57,7 @@ public class ChaoticKarma {
      */
     private void registerPositiveDefaultEvents() {
         KarmaRegistry.registerPositiveEvent(new GiveGoods());
+        KarmaRegistry.registerPositiveEvent(new SpawnChest());
     }
 
     private void registerNegativeDefaultPerks() {
