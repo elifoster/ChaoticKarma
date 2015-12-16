@@ -18,6 +18,13 @@ public class SetOnFire extends KarmaEventNegative {
         }
     }
 
+    /**
+     * Checks whether the player is in a location in which they would logically be afraid of
+     * being set on fire, such as being near lava or in the nether.
+     * @param player The player to check.
+     * @param world The world.
+     * @return
+     */
     private boolean canSetOnFire(EntityPlayer player, World world) {
         if (player.dimension == -1) {
             return true;
