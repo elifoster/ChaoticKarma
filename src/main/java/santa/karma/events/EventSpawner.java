@@ -5,8 +5,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import santa.karma.ChaoticKarma;
 import santa.karma.api.event.KarmaEventNegative;
-import santa.karma.api.KarmaEventPositive;
 import santa.karma.api.KarmaRegistry;
+import santa.karma.api.event.KarmaEventPositive;
 import santa.karma.player.ExtendedPlayer;
 
 import java.util.Random;
