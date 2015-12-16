@@ -11,6 +11,7 @@ import santa.karma.command.KarmaGetCommand;
 import santa.karma.command.KarmaSetCommand;
 import santa.karma.events.EventSpawner;
 import santa.karma.events.negative.LightningStrike;
+import santa.karma.events.negative.SetOnFire;
 import santa.karma.events.negative.SpawnMobHerd;
 import santa.karma.events.positive.GiveExperience;
 import santa.karma.events.positive.GiveGoods;
@@ -54,6 +55,7 @@ public class ChaoticKarma {
     private void registerNegativeDefaultEvents() {
         KarmaRegistry.registerNegativeEvent(new LightningStrike());
         KarmaRegistry.registerNegativeEvent(new SpawnMobHerd());
+        KarmaRegistry.registerNegativeEvent(new SetOnFire());
     }
 
     /**
