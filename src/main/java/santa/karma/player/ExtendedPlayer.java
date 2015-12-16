@@ -9,9 +9,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IExtendedEntityProperties;
 import net.minecraftforge.common.util.Constants;
 import santa.karma.ChaoticKarma;
-import santa.karma.api.KarmaPerkNegative;
-import santa.karma.api.KarmaPerkPositive;
 import santa.karma.api.KarmaRegistry;
+import santa.karma.api.perk.KarmaPerkNegative;
+import santa.karma.api.perk.KarmaPerkPositive;
 
 import java.util.ArrayList;
 

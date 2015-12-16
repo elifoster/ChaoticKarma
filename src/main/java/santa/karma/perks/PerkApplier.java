@@ -2,9 +2,9 @@ package santa.karma.perks;
 
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import santa.karma.ChaoticKarma;
-import santa.karma.api.KarmaPerkNegative;
-import santa.karma.api.KarmaPerkPositive;
 import santa.karma.api.KarmaRegistry;
+import santa.karma.api.perk.KarmaPerkNegative;
+import santa.karma.api.perk.KarmaPerkPositive;
 import santa.karma.gameevents.KarmaUpdateEvent;
 import santa.karma.player.ExtendedPlayer;
 

@@ -7,8 +7,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import santa.karma.ChaoticKarma;
+import santa.karma.api.event.KarmaEventPositive;
+import santa.karma.api.perk.KarmaPerkNegative;
+import santa.karma.api.perk.KarmaPerkPositive;
 import santa.karma.gameevents.KarmaUpdateEvent;
 import santa.karma.player.ExtendedPlayer;
+import santa.karma.api.event.KarmaEventNegative;
 
 import java.util.ArrayList;
 import java.util.HashMap;

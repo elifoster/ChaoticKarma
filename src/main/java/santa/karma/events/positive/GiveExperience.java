@@ -2,7 +2,7 @@ package santa.karma.events.positive;
 
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import santa.karma.api.KarmaEventPositive;
+import santa.karma.api.event.KarmaEventPositive;
 
 import java.util.Random;
 

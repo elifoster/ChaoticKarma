@@ -2,16 +2,13 @@ package santa.karma.events.negative;
 
 import cpw.mods.fml.common.FMLLog;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import santa.karma.ChaoticKarma;
-import santa.karma.api.KarmaEventNegative;
+import santa.karma.api.event.KarmaEventNegative;
 import santa.karma.api.KarmaRegistry;
 import santa.karma.util.MathHelper;
 
-import java.lang.reflect.Constructor;
 import java.util.Random;
 
 public class SpawnMobHerd extends KarmaEventNegative {

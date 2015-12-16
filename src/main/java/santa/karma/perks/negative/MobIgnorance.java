@@ -6,7 +6,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
-import santa.karma.api.KarmaPerkNegative;
+import santa.karma.api.perk.KarmaPerkNegative;
 
 import java.util.ArrayList;
 

@@ -10,7 +10,7 @@ import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
 import santa.karma.ChaoticKarma;
-import santa.karma.api.KarmaEventPositive;
+import santa.karma.api.event.KarmaEventPositive;
 import santa.karma.util.MathHelper;
 
 import java.util.Random;

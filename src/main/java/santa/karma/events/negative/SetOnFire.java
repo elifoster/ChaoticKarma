@@ -3,7 +3,7 @@ package santa.karma.events.negative;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import santa.karma.api.KarmaEventNegative;
+import santa.karma.api.event.KarmaEventNegative;
 
 public class SetOnFire extends KarmaEventNegative {
     public SetOnFire() {

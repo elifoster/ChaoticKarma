@@ -3,7 +3,7 @@ package santa.karma.events.negative;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
-import santa.karma.api.KarmaEventNegative;
+import santa.karma.api.event.KarmaEventNegative;
 
 public class LightningStrike extends KarmaEventNegative {
     public LightningStrike() {

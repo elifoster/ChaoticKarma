@@ -4,7 +4,7 @@ import cpw.mods.fml.common.eventhandler.Event;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import santa.karma.ChaoticKarma;
-import santa.karma.api.KarmaPerkPositive;
+import santa.karma.api.perk.KarmaPerkPositive;
 import santa.karma.player.ExtendedPlayer;
 
 import java.util.Random;
