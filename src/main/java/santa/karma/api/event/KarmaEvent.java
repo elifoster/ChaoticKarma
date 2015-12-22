@@ -38,7 +38,7 @@ public class KarmaEvent implements IKarmaEvent {
 
     @Override
     public void setKarmaChance(int chance) throws IllegalArgumentException {
-        if (this.chance > 0) {
+        if (chance > 0) {
             this.chance = chance;
         } else {
             throw new IllegalArgumentException("The karma chance must be greater than 0");
