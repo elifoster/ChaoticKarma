@@ -22,7 +22,7 @@ import santa.karma.perks.negative.MobIgnorance;
 import santa.karma.perks.positive.DoubleBoneMeal;
 import santa.karma.player.ExtendedPlayerInitializer;
 
-@Mod(name = "ChaoticKarma", modid = "chaotickarma", version = "1.0.0")
+@Mod(name = "ChaoticKarma", modid = "chaotickarma", version = "1.0.1")
 public class ChaoticKarma {
     public static final String EXTENDEDPLAYER = "ChaoticKarmaPlayer";
     public static final int MAX_KARMA = 2000;
