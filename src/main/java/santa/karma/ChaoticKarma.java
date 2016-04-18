@@ -1,12 +1,12 @@
 package santa.karma;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import santa.karma.api.KarmaRegistry;
 import santa.karma.api.MobIgnoranceRegistry;
 import santa.karma.command.KarmaGetCommand;
@@ -24,7 +24,7 @@ import santa.karma.perks.negative.MobIgnorance;
 import santa.karma.perks.positive.DoubleBoneMeal;
 import santa.karma.player.ExtendedPlayerInitializer;
 
-@Mod(name = "ChaoticKarma", modid = "chaotickarma", version = "1.0.2")
+@Mod(name = "ChaoticKarma", modid = "chaotickarma", version = "2.0.0")
 public class ChaoticKarma {
     public static final String EXTENDEDPLAYER = "ChaoticKarmaPlayer";
     public static final int MAX_KARMA = 2000;
@@ -97,7 +97,7 @@ public class ChaoticKarma {
 
         MobIgnoranceRegistry.registerLevelTwo(EntitySkeleton.class);
         MobIgnoranceRegistry.registerLevelTwo(EntityZombie.class);
-        MobIgnoranceRegistry.registerLevelTwo(EntitySkeleton.class);
+        MobIgnoranceRegistry.registerLevelTwo(EntityEndermite.class);
         MobIgnoranceRegistry.registerLevelTwo(EntitySlime.class);
         MobIgnoranceRegistry.registerLevelTwo(EntityCaveSpider.class);
 
@@ -111,6 +111,7 @@ public class ChaoticKarma {
         MobIgnoranceRegistry.registerLevelFour(EntityGiantZombie.class);
         MobIgnoranceRegistry.registerLevelFour(EntityWitch.class);
         MobIgnoranceRegistry.registerLevelFour(EntityEnderman.class);
+        MobIgnoranceRegistry.registerLevelFour(EntityGuardian.class);
     }
 
     /**

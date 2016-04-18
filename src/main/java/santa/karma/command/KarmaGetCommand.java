@@ -3,19 +3,16 @@ package santa.karma.command;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import santa.karma.ChaoticKarma;
 import santa.karma.player.ExtendedPlayer;
 
+import java.util.Collections;
 import java.util.List;
 
 public class KarmaGetCommand implements ICommand {
-    @Override
-    public int compareTo(Object object) {
-        return 0;
-    }
-
     @Override
     public String getCommandName() {
         return "karmaget";
@@ -27,8 +24,8 @@ public class KarmaGetCommand implements ICommand {
     }
 
     @Override
-    public List getCommandAliases() {
-        return null;
+    public List<String> getCommandAliases() {
+        return Collections.emptyList();
     }
 
     @Override
@@ -47,17 +44,23 @@ public class KarmaGetCommand implements ICommand {
     @Override
         public boolean canCommandSenderUseCommand(ICommandSender sender) {
         EntityPlayer player = (EntityPlayer) sender;
-        return MinecraftServer.getServer().getConfigurationManager().func_152596_g(
+        return MinecraftServer.getServer().getConfigurationManager().canSendCommands(
             player.getGameProfile());
     }
 
     @Override
-    public List addTabCompletionOptions(ICommandSender p_71516_1_, String[] p_71516_2_) {
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return null;
     }
 
     @Override
     public boolean isUsernameIndex(String[] p_82358_1_, int p_82358_2_) {
         return false;
+    }
+
+    @SuppressWarnings("NullableProblems")
+    @Override
+    public int compareTo(ICommand o) {
+        return 0;
     }
 }

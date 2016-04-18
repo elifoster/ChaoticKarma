@@ -3,9 +3,9 @@ package santa.karma.events.positive;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityChest;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.WeightedRandomChestContent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ChestGenHooks;
@@ -13,6 +13,7 @@ import santa.karma.ChaoticKarma;
 import santa.karma.api.event.KarmaEventPositive;
 import santa.karma.util.MathHelper;
 
+import java.util.List;
 import java.util.Random;
 
 public class SpawnChest extends KarmaEventPositive {
@@ -20,13 +21,14 @@ public class SpawnChest extends KarmaEventPositive {
       ChestGenHooks.BONUS_CHEST,
       ChestGenHooks.DUNGEON_CHEST,
       ChestGenHooks.MINESHAFT_CORRIDOR,
+      ChestGenHooks.NETHER_FORTRESS,
       ChestGenHooks.PYRAMID_DESERT_CHEST,
       ChestGenHooks.PYRAMID_JUNGLE_CHEST,
       ChestGenHooks.PYRAMID_JUNGLE_DISPENSER,
       ChestGenHooks.STRONGHOLD_CORRIDOR,
       ChestGenHooks.STRONGHOLD_CROSSING,
       ChestGenHooks.STRONGHOLD_LIBRARY,
-      ChestGenHooks.VILLAGE_BLACKSMITH
+      ChestGenHooks.VILLAGE_BLACKSMITH,
     };
 
     public SpawnChest() {
@@ -41,24 +43,17 @@ public class SpawnChest extends KarmaEventPositive {
             int x = (int) player.posX + MathHelper.randomNegOrPos(10, random);
             int y = (int) player.posY;
             int z = (int) player.posZ + MathHelper.randomNegOrPos(10, random);
-            Block block = world.getBlock(x, y, z);
-            if ((block == null || block.isAir(world, x, y, z)) &&
-              world.getTileEntity(x, y, z) == null) {
-                world.setBlock(x, y, z, Blocks.chest);
+            BlockPos pos = new BlockPos(x, y, z);
+            Block block = world.getBlockState(pos).getBlock();
+            if ((block == null || world.isAirBlock(pos)) &&
+              world.getTileEntity(pos) == null) {
+                world.setBlockState(pos, Blocks.chest.getDefaultState());
                 String type = chestTypes[random.nextInt(chestTypes.length)];
-                WeightedRandomChestContent[] items = ChestGenHooks.getItems(type, random);
-                TileEntity tile = world.getTileEntity(x, y, z);
+                List<WeightedRandomChestContent> items = ChestGenHooks.getItems(type, random);
+                TileEntity tile = world.getTileEntity(pos);
                 if (tile != null && tile instanceof TileEntityChest) {
-                    int slot = 0;
-                    for (WeightedRandomChestContent content : items) {
-                        ItemStack stack = content.theItemId;
-                        int max = content.theMaximumChanceToGenerateItem;
-                        int min = content.theMinimumChanceToGenerateItem;
-                        if (random.nextInt(max) == min) {
-                            ((TileEntityChest) tile).setInventorySlotContents(slot, stack);
-                            slot++;
-                        }
-                    }
+                    WeightedRandomChestContent.generateChestContents(random, items,
+                      (TileEntityChest) tile, random.nextInt(3));
                 }
             }
         }

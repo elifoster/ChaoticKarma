@@ -5,10 +5,10 @@ import net.minecraft.entity.Entity;
 import java.util.ArrayList;
 
 public class MobIgnoranceRegistry {
-    public static ArrayList<Class> levelOneMobs = new ArrayList();
-    public static ArrayList<Class> levelTwoMobs = new ArrayList();
-    public static ArrayList<Class> levelThreeMobs = new ArrayList();
-    public static ArrayList<Class> levelFourMobs = new ArrayList();
+    public static ArrayList<Class> levelOneMobs = new ArrayList<>();
+    public static ArrayList<Class> levelTwoMobs = new ArrayList<>();
+    public static ArrayList<Class> levelThreeMobs = new ArrayList<>();
+    public static ArrayList<Class> levelFourMobs = new ArrayList<>();
 
     /**
      * Adds an Entity class to the list of level 1 (karma 750) mobs to ignore.

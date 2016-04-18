@@ -1,9 +1,9 @@
 package santa.karma.perks;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import santa.karma.ChaoticKarma;
 import santa.karma.api.KarmaRegistry;
 import santa.karma.api.perk.KarmaPerkNegative;

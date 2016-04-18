@@ -2,6 +2,7 @@ package santa.karma.events.negative;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 import santa.karma.api.event.KarmaEventNegative;
 
@@ -37,7 +38,8 @@ public class SetOnFire extends KarmaEventNegative {
         for (int i = -5; i <= 5; i++) {
             for (int j = -5; j <= 5; j++) {
                 for (int k = -5; k <= 5; k++) {
-                    if (world.getBlock(x + i, y + j, z + k).getMaterial() == Material.lava) {
+                    BlockPos pos = new BlockPos(x + i, y + j, z + k);
+                    if (world.getBlockState(pos).getBlock().getMaterial() == Material.lava) {
                         return true;
                     }
                 }

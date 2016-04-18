@@ -1,8 +1,8 @@
 package santa.karma.events;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import santa.karma.ChaoticKarma;
 import santa.karma.api.event.KarmaEventNegative;
 import santa.karma.api.KarmaRegistry;

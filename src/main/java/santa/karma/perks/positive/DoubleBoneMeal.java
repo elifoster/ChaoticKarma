@@ -1,8 +1,8 @@
 package santa.karma.perks.positive;
 
-import cpw.mods.fml.common.eventhandler.Event;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.event.entity.player.BonemealEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import santa.karma.api.perk.KarmaPerkPositive;
 
 import java.util.Random;

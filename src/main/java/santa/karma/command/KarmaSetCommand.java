@@ -3,6 +3,7 @@ package santa.karma.command;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.MinecraftForge;
@@ -10,6 +11,7 @@ import santa.karma.ChaoticKarma;
 import santa.karma.gameevents.KarmaUpdateEvent;
 import santa.karma.player.ExtendedPlayer;
 
+import java.util.Collections;
 import java.util.List;
 
 public class KarmaSetCommand implements ICommand {
@@ -24,8 +26,8 @@ public class KarmaSetCommand implements ICommand {
     }
 
     @Override
-    public List getCommandAliases() {
-        return null;
+    public List<String> getCommandAliases() {
+        return Collections.emptyList();
     }
 
     @Override
@@ -48,7 +50,7 @@ public class KarmaSetCommand implements ICommand {
                 nbt.karma = amount;
                 MinecraftForge.EVENT_BUS.post(new KarmaUpdateEvent(old, target, amount));
                 sender.addChatMessage(new ChatComponentText(StatCollector.translateToLocalFormatted
-                  ("command.set.success", target.getDisplayName(), amount)));
+                  ("command.set.success", target.getDisplayNameString(), amount)));
             }
         }
     }
@@ -56,12 +58,12 @@ public class KarmaSetCommand implements ICommand {
     @Override
     public boolean canCommandSenderUseCommand(ICommandSender sender) {
         EntityPlayer player = (EntityPlayer) sender;
-        return MinecraftServer.getServer().getConfigurationManager().func_152596_g(
+        return MinecraftServer.getServer().getConfigurationManager().canSendCommands(
           player.getGameProfile());
     }
 
     @Override
-    public List addTabCompletionOptions(ICommandSender p_71516_1_, String[] p_71516_2_) {
+    public List<String> addTabCompletionOptions(ICommandSender sender, String[] args, BlockPos pos) {
         return null;
     }
 
@@ -70,8 +72,9 @@ public class KarmaSetCommand implements ICommand {
         return false;
     }
 
+    @SuppressWarnings("NullableProblems")
     @Override
-    public int compareTo(Object o) {
+    public int compareTo(ICommand o) {
         return 0;
     }
 }

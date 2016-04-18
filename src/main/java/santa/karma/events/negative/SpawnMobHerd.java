@@ -1,9 +1,9 @@
 package santa.karma.events.negative;
 
-import cpw.mods.fml.common.FMLLog;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.FMLLog;
 import santa.karma.ChaoticKarma;
 import santa.karma.api.event.KarmaEventNegative;
 import santa.karma.api.KarmaRegistry;

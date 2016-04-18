@@ -1,7 +1,7 @@
 package santa.karma.gameevents;
 
-import cpw.mods.fml.common.eventhandler.Event;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.fml.common.eventhandler.Event;
 
 /**
  * KarmaUpdateEvent is fired when a player's karma is updated.

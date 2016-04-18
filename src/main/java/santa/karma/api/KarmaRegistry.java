@@ -1,11 +1,11 @@
 package santa.karma.api;
 
-import cpw.mods.fml.common.FMLLog;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.FMLLog;
 import santa.karma.ChaoticKarma;
 import santa.karma.api.event.KarmaEventPositive;
 import santa.karma.api.perk.KarmaPerkNegative;
@@ -22,27 +22,27 @@ public class KarmaRegistry {
     /**
      * All of the registered negative events.
      */
-    public static ArrayList<KarmaEventNegative> eventNegatives = new ArrayList();
+    public static ArrayList<KarmaEventNegative> eventNegatives = new ArrayList<>();
 
     /**
      * All of the registered positive events.
      */
-    public static ArrayList<KarmaEventPositive> eventPositives = new ArrayList();
+    public static ArrayList<KarmaEventPositive> eventPositives = new ArrayList<>();
 
     /**
      * All of the registered positive perks.
      */
-    public static HashMap<String, KarmaPerkPositive> perkPositives = new HashMap();
+    public static HashMap<String, KarmaPerkPositive> perkPositives = new HashMap<>();
 
     /**
      * All of the registered negative perks.
      */
-    public static HashMap<String, KarmaPerkNegative> perkNegatives = new HashMap();
+    public static HashMap<String, KarmaPerkNegative> perkNegatives = new HashMap<>();
 
     /**
      * The resources this mod considers valuable. Includes default vanilla minecraft values.
      */
-    public static ArrayList<ItemStack> valuablesGiveGoods = new ArrayList() {{
+    public static ArrayList<ItemStack> valuablesGiveGoods = new ArrayList<ItemStack>() {{
         add(new ItemStack(Items.diamond));
         add(new ItemStack(Items.emerald));
         add(new ItemStack(Items.iron_ingot));
@@ -60,7 +60,7 @@ public class KarmaRegistry {
     /**
      * The entity classes that the SpawnMobHerd event can spawn.
      */
-    public static ArrayList<Class> herdMobs = new ArrayList<Class>();
+    public static ArrayList<Class> herdMobs = new ArrayList<>();
 
     /**
      * Adds karma to the player.

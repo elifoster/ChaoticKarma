@@ -1,11 +1,11 @@
 package santa.karma.perks.negative;
 
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import santa.karma.api.perk.KarmaPerkNegative;
 
 import java.util.ArrayList;

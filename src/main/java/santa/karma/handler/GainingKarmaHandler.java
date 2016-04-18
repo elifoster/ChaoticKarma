@@ -1,7 +1,5 @@
 package santa.karma.handler;
 
-import cpw.mods.fml.common.eventhandler.EventPriority;
-import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockMobSpawner;
 import net.minecraft.block.BlockSapling;
@@ -21,6 +19,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import santa.karma.ChaoticKarma;
 import santa.karma.api.KarmaRegistry;
 import santa.karma.player.ExtendedPlayer;
@@ -76,9 +76,9 @@ public class GainingKarmaHandler {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onBlockBreak(BlockEvent.BreakEvent event) {
         if (!event.isCanceled()) {
-            Block block = event.block;
             EntityPlayer player = event.getPlayer();
             if (player != null) {
+                Block block = player.worldObj.getBlockState(event.pos).getBlock();
                 if (block instanceof BlockMobSpawner) {
                     KarmaRegistry.addKarma(player, 2);
                 } else if (block instanceof BlockSapling) {
@@ -90,13 +90,11 @@ public class GainingKarmaHandler {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onBlockPlace(BlockEvent.PlaceEvent event) {
-        if (!event.isCanceled()) {
-            Block block = event.placedBlock;
-            if (event.player != null) {
-                EntityPlayer player = event.player;
-                if (block instanceof BlockSapling) {
-                    KarmaRegistry.addKarma(player, 1);
-                }
+        if (!event.isCanceled() && event.player != null) {
+            Block block = event.placedBlock.getBlock();
+            EntityPlayer player = event.player;
+            if (block instanceof BlockSapling) {
+                KarmaRegistry.addKarma(player, 1);
             }
         }
     }
