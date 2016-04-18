@@ -1,8 +1,6 @@
 package santa.karma.command;
 
-import net.minecraft.command.ICommand;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.command.WrongUsageException;
+import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
@@ -15,8 +13,6 @@ import santa.karma.player.ExtendedPlayer;
 import java.util.List;
 
 public class KarmaSetCommand implements ICommand {
-    String playerName;
-
     @Override
     public String getCommandName() {
         return "karmaset";
@@ -33,13 +29,12 @@ public class KarmaSetCommand implements ICommand {
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args) {
+    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 2 || args.length > 2) {
             throw new WrongUsageException(this.getCommandUsage(sender));
         } else {
-            EntityPlayer player = (EntityPlayer) sender;
-            this.playerName = args[0];
-            ExtendedPlayer nbt = (ExtendedPlayer) player.getExtendedProperties(ChaoticKarma
+            EntityPlayer target = CommandBase.getPlayer(sender, args[0]);
+            ExtendedPlayer nbt = (ExtendedPlayer) target.getExtendedProperties(ChaoticKarma
               .EXTENDEDPLAYER);
             int amount = Integer.parseInt(args[1]);
             if (amount < ChaoticKarma.MIN_KARMA) {
@@ -51,9 +46,9 @@ public class KarmaSetCommand implements ICommand {
             } else {
                 int old = nbt.karma;
                 nbt.karma = amount;
-                MinecraftForge.EVENT_BUS.post(new KarmaUpdateEvent(old, player, amount));
+                MinecraftForge.EVENT_BUS.post(new KarmaUpdateEvent(old, target, amount));
                 sender.addChatMessage(new ChatComponentText(StatCollector.translateToLocalFormatted
-                  ("command.set.success", player.getDisplayName(), amount)));
+                  ("command.set.success", target.getDisplayName(), amount)));
             }
         }
     }

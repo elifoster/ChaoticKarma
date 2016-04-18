@@ -22,4 +22,11 @@ public class KarmaPerkPositive extends KarmaPerk {
             nbt.positivePerks.remove(this);
         }
     }
+
+    @Override
+    public boolean hasPerk(EntityPlayer player) {
+        ExtendedPlayer nbt = (ExtendedPlayer) player.getExtendedProperties(ChaoticKarma
+          .EXTENDEDPLAYER);
+        return nbt.positivePerks.contains(this);
+    }
 }

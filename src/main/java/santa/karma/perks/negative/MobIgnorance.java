@@ -46,14 +46,10 @@ public class MobIgnorance extends KarmaPerkNegative {
      * mob that can be ignored.
      */
     private boolean shouldBeIgnored(Entity player, Entity source) {
-        if (player instanceof EntityPlayer && this.hasPerk((EntityPlayer) player) &&
-          source instanceof EntityLiving) {
-            if (this.hasPerk((EntityPlayer) player)) {
-                for (Class entityClass : this.ignoredMobs) {
-                    if (entityClass.isInstance(source)) {
-                        System.out.println("is instance");
-                        return true;
-                    }
+        if (player instanceof EntityPlayer && this.hasPerk((EntityPlayer) player)) {
+            for (Class entityClass : this.ignoredMobs) {
+                if (entityClass.isInstance(source)) {
+                    return true;
                 }
             }
         }

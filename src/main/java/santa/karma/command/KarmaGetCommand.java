@@ -1,8 +1,6 @@
 package santa.karma.command;
 
-import net.minecraft.command.ICommand;
-import net.minecraft.command.ICommandSender;
-import net.minecraft.command.WrongUsageException;
+import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
@@ -34,12 +32,12 @@ public class KarmaGetCommand implements ICommand {
     }
 
     @Override
-    public void processCommand(ICommandSender sender, String[] args) {
+    public void processCommand(ICommandSender sender, String[] args) throws CommandException {
         if (args.length < 1 || args.length > 1) {
             throw new WrongUsageException(this.getCommandUsage(sender));
         } else {
-            EntityPlayer player = (EntityPlayer) sender;
-            ExtendedPlayer nbt = (ExtendedPlayer) player.getExtendedProperties(ChaoticKarma
+            EntityPlayer target = CommandBase.getPlayer(sender, args[0]);
+            ExtendedPlayer nbt = (ExtendedPlayer) target.getExtendedProperties(ChaoticKarma
               .EXTENDEDPLAYER);
             sender.addChatMessage(new ChatComponentText(StatCollector.translateToLocalFormatted
               ("command.get", args[0], nbt.karma)));
