@@ -7,22 +7,18 @@ import santa.karma.api.event.KarmaEventPositive;
 import santa.karma.api.KarmaRegistry;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class GiveGoods extends KarmaEventPositive {
     public GiveGoods() {
-        this.setRequiredKarmaLevel(1800);
-        this.setKarmaChance(1500);
+        setRequiredKarmaLevel(1800);
+        setKarmaChance(1500);
     }
 
     @Override
     public void doEvent(EntityPlayer player, World world) {
-        if (playerHasEnoughKarma(player)) {
-            Random random = new Random();
-            ArrayList<ItemStack> valuables = KarmaRegistry.valuablesGiveGoods;
-            ItemStack stack = valuables.get(random.nextInt(valuables.size()));
-            stack.stackSize = random.nextInt(4);
-            player.inventory.addItemStackToInventory(stack);
-        }
+        ArrayList<ItemStack> valuables = KarmaRegistry.valuablesGiveGoods;
+        ItemStack stack = valuables.get(RANDOM.nextInt(valuables.size()));
+        stack.stackSize = RANDOM.nextInt(4);
+        player.inventory.addItemStackToInventory(stack);
     }
 }

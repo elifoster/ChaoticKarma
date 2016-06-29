@@ -4,12 +4,19 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import santa.karma.ChaoticKarma;
 
+import java.util.Random;
+
 /**
  * The KarmaEvent class contains default implementations for all event-related methods EXCEPT
  * playerHasEnoughKarma, because that relies on the type of event that it is, and doEvent,
  * because there is no default implementation needed for it.
  */
 public class KarmaEvent implements IKarmaEvent {
+    /**
+     * For all your RNG needs.
+     */
+    public static final Random RANDOM = new Random();
+
     /**
      * The amount of karma needed to do the event.
      */

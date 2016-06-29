@@ -19,21 +19,22 @@ public class MobIgnorance extends KarmaPerkNegative {
      * @param mobs The array of mob classes that this particular mob ignorance perk will ignore.
      */
     public MobIgnorance(int level, ArrayList<Class> mobs) {
-        this.setRequiredKarmaLevel(level);
-        this.ignoredMobs = mobs;
+        setRequiredKarmaLevel(level);
+        ignoredMobs = mobs;
     }
 
     @SubscribeEvent
     public void preventTargetSet(LivingSetAttackTargetEvent event) {
-        if (shouldBeIgnored(event.target, event.entity)) {
-            ((EntityLiving) event.entity).setAttackTarget(null);
-            event.entityLiving.setRevengeTarget(null);
+        Entity entity = event.getEntity();
+        if (shouldBeIgnored(event.getTarget(), entity)) {
+            ((EntityLiving) entity).setAttackTarget(null);
+            event.getEntityLiving().setRevengeTarget(null);
         }
     }
 
     @SubscribeEvent
     public void preventAttack(LivingAttackEvent event) {
-        if (shouldBeIgnored(event.entity, event.source.getSourceOfDamage())) {
+        if (shouldBeIgnored(event.getEntity(), event.getSource().getSourceOfDamage())) {
             event.setCanceled(true);
         }
     }
@@ -46,7 +47,7 @@ public class MobIgnorance extends KarmaPerkNegative {
      * mob that can be ignored.
      */
     private boolean shouldBeIgnored(Entity player, Entity source) {
-        if (player instanceof EntityPlayer && this.hasPerk((EntityPlayer) player)) {
+        if (player instanceof EntityPlayer && hasPerk((EntityPlayer) player)) {
             for (Class entityClass : this.ignoredMobs) {
                 if (entityClass.isInstance(source)) {
                     return true;

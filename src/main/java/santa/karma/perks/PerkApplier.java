@@ -1,5 +1,6 @@
 package santa.karma.perks;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -9,7 +10,8 @@ import santa.karma.api.KarmaRegistry;
 import santa.karma.api.perk.KarmaPerkNegative;
 import santa.karma.api.perk.KarmaPerkPositive;
 import santa.karma.gameevents.KarmaUpdateEvent;
-import santa.karma.player.ExtendedPlayer;
+import santa.karma.player.IPlayerData;
+import santa.karma.util.EntityUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,29 +23,33 @@ import java.util.Iterator;
 public class PerkApplier {
     @SubscribeEvent
     public void initializePerks(EntityJoinWorldEvent event) {
-        if (event.entity instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.entity;
-            ExtendedPlayer nbt = (ExtendedPlayer) player.getExtendedProperties(ChaoticKarma
-              .EXTENDEDPLAYER);
-            MinecraftForge.EVENT_BUS.post(new KarmaUpdateEvent(ChaoticKarma.DEFAULT_KARMA,
-              player, nbt.karma));
+        Entity entity = event.getEntity();
+        if (!(entity instanceof EntityPlayer)) {
+            return;
         }
+
+        EntityPlayer player = (EntityPlayer) entity;
+        IPlayerData data = EntityUtil.getPlayerData(player);
+
+        MinecraftForge.EVENT_BUS.post(new KarmaUpdateEvent(ChaoticKarma.DEFAULT_KARMA, player, data.getKarma()));
     }
 
     @SubscribeEvent
     public void applyPerk(KarmaUpdateEvent event) {
         HashMap<String, KarmaPerkPositive> positive = KarmaRegistry.perkPositives;
         HashMap<String, KarmaPerkNegative> negative = KarmaRegistry.perkNegatives;
-        if (event.newAmount >= ChaoticKarma.DEFAULT_KARMA) {
+        int newAmount = event.getNewAmount();
+        EntityPlayer player = event.getPlayer();
+        if (newAmount >= ChaoticKarma.DEFAULT_KARMA) {
             for (KarmaPerkPositive perk : positive.values()) {
-                if (perk.getRequiredKarmaLevel() <= event.newAmount) {
-                    perk.applyPerk(event.player);
+                if (perk.getRequiredKarmaLevel() <= newAmount) {
+                    perk.applyPerk(player);
                 }
             }
         } else {
             for (KarmaPerkNegative perk : negative.values()) {
-                if (perk.getRequiredKarmaLevel() >= event.newAmount) {
-                    perk.applyPerk(event.player);
+                if (perk.getRequiredKarmaLevel() >= newAmount) {
+                    perk.applyPerk(player);
                 }
             }
         }
@@ -51,21 +57,21 @@ public class PerkApplier {
 
     @SubscribeEvent
     public void removePerk(KarmaUpdateEvent event) {
-        ExtendedPlayer nbt = (ExtendedPlayer) event.player.getExtendedProperties(ChaoticKarma
-          .EXTENDEDPLAYER);
-        ArrayList<KarmaPerkPositive> positive = nbt.positivePerks;
-        ArrayList<KarmaPerkNegative> negative = nbt.negativePerks;
+        IPlayerData data = EntityUtil.getPlayerData(event.getPlayer());
+        ArrayList<KarmaPerkPositive> positive = data.getPositivePerks();
+        ArrayList<KarmaPerkNegative> negative = data.getNegativePerks();
         Iterator<KarmaPerkPositive> positiveIterator = positive.iterator();
         Iterator<KarmaPerkNegative> negativeIterator = negative.iterator();
+        int karma = data.getKarma();
         while (positiveIterator.hasNext()) {
             KarmaPerkPositive perk = positiveIterator.next();
-            if (perk.getRequiredKarmaLevel() > nbt.karma) {
+            if (perk.getRequiredKarmaLevel() > karma) {
                 positiveIterator.remove();
             }
         }
         while (negativeIterator.hasNext()) {
             KarmaPerkNegative perk = negativeIterator.next();
-            if (perk.getRequiredKarmaLevel() < nbt.karma) {
+            if (perk.getRequiredKarmaLevel() < karma) {
                 negativeIterator.remove();
             }
         }

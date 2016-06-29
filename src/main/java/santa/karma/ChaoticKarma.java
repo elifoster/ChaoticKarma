@@ -4,8 +4,12 @@ import net.minecraft.entity.monster.*;
 import net.minecraft.entity.projectile.EntityLargeFireball;
 import net.minecraft.entity.projectile.EntitySmallFireball;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityInject;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import santa.karma.api.KarmaRegistry;
 import santa.karma.api.MobIgnoranceRegistry;
@@ -22,14 +26,25 @@ import santa.karma.handler.GainingKarmaHandler;
 import santa.karma.perks.PerkApplier;
 import santa.karma.perks.negative.MobIgnorance;
 import santa.karma.perks.positive.DoubleBoneMeal;
-import santa.karma.player.ExtendedPlayerInitializer;
+import santa.karma.player.IPlayerData;
+import santa.karma.player.PlayerDataInitializer;
+import santa.karma.player.PlayerDataStorage;
 
-@Mod(name = "ChaoticKarma", modid = "chaotickarma", version = "2.0.0")
+@Mod(name = "ChaoticKarma", modid = ChaoticKarma.MOD_ID, version = "2.0.0")
 public class ChaoticKarma {
-    public static final String EXTENDEDPLAYER = "ChaoticKarmaPlayer";
+    public static final String MOD_ID = "chaotickarma";
     public static final int MAX_KARMA = 2000;
     public static final int DEFAULT_KARMA = 1000;
     public static final int MIN_KARMA = 0;
+
+    @CapabilityInject(IPlayerData.class)
+    public static final Capability<IPlayerData> PLAYER_DATA = null;
+
+    @Mod.EventHandler
+    public void preInit(FMLPreInitializationEvent event) {
+        CapabilityManager.INSTANCE.register(IPlayerData.class, new PlayerDataStorage(),
+          IPlayerData.DefaultImplemenation.class);
+    }
 
     @Mod.EventHandler
     public void init(FMLInitializationEvent event) {
@@ -39,7 +54,7 @@ public class ChaoticKarma {
         registerPositiveDefaultEvents();
         registerPositiveDefaultPerks();
         registerNegativeDefaultPerks();
-        MinecraftForge.EVENT_BUS.register(new ExtendedPlayerInitializer());
+        MinecraftForge.EVENT_BUS.register(new PlayerDataInitializer());
         MinecraftForge.EVENT_BUS.register(new EventSpawner());
         MinecraftForge.EVENT_BUS.register(new PerkApplier());
         MinecraftForge.EVENT_BUS.register(new GainingKarmaHandler());
@@ -105,6 +120,7 @@ public class ChaoticKarma {
         MobIgnoranceRegistry.registerLevelThree(EntityBlaze.class);
         MobIgnoranceRegistry.registerLevelThree(EntitySmallFireball.class);
         MobIgnoranceRegistry.registerLevelThree(EntityMagmaCube.class);
+        MobIgnoranceRegistry.registerLevelFour(EntityShulker.class);
 
         MobIgnoranceRegistry.registerLevelFour(EntityGhast.class);
         MobIgnoranceRegistry.registerLevelFour(EntityLargeFireball.class);

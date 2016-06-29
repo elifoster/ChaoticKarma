@@ -17,20 +17,25 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.event.entity.player.EntityInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import santa.karma.ChaoticKarma;
 import santa.karma.api.KarmaRegistry;
-import santa.karma.player.ExtendedPlayer;
+import santa.karma.player.IPlayerData;
+import santa.karma.util.EntityUtil;
 
 public class GainingKarmaHandler {
     @SubscribeEvent
-    public void onTame(EntityInteractEvent event) {
-        EntityPlayer player = event.entityPlayer;
-        Entity target = event.target;
-        ItemStack held = player.getHeldItem();
+    public void onTame(PlayerInteractEvent.EntityInteract event) {
+        EntityPlayer player = event.getEntityPlayer();
+        Entity target = event.getTarget();
+        ItemStack held = player.getHeldItemMainhand();
+        if (held == null) {
+            held = player.getHeldItemOffhand();
+        }
+        // TODO: isBreedingItem and the taming item are different. Right now there is no way to check if an ItemStack is an animal's taming item.
         if (held != null && target instanceof EntityTameable) {
             EntityTameable tameableTarget = (EntityTameable) target;
             if (!tameableTarget.isTamed() && tameableTarget.isBreedingItem(held)) {
@@ -41,14 +46,13 @@ public class GainingKarmaHandler {
 
     @SubscribeEvent
     public void onMurder(LivingDeathEvent event) {
-        DamageSource source = event.source;
-        EntityLivingBase entity = event.entityLiving;
+        DamageSource source = event.getSource();
+        EntityLivingBase entity = event.getEntityLiving();
         if (source.getSourceOfDamage() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) source.getSourceOfDamage();
             if (entity instanceof EntityPlayer) {
-                ExtendedPlayer targetNBT = (ExtendedPlayer) entity.getExtendedProperties(ChaoticKarma
-                  .EXTENDEDPLAYER);
-                if (targetNBT.karma < ChaoticKarma.DEFAULT_KARMA) {
+                IPlayerData targetData = EntityUtil.getPlayerData((EntityPlayer) entity);
+                if (targetData.getKarma() < ChaoticKarma.DEFAULT_KARMA) {
                     KarmaRegistry.addKarma(player, 2);
                 } else {
                     KarmaRegistry.removeKarma(player, 3);
@@ -78,7 +82,7 @@ public class GainingKarmaHandler {
         if (!event.isCanceled()) {
             EntityPlayer player = event.getPlayer();
             if (player != null) {
-                Block block = player.worldObj.getBlockState(event.pos).getBlock();
+                Block block = player.worldObj.getBlockState(event.getPos()).getBlock();
                 if (block instanceof BlockMobSpawner) {
                     KarmaRegistry.addKarma(player, 2);
                 } else if (block instanceof BlockSapling) {
@@ -90,9 +94,9 @@ public class GainingKarmaHandler {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onBlockPlace(BlockEvent.PlaceEvent event) {
-        if (!event.isCanceled() && event.player != null) {
-            Block block = event.placedBlock.getBlock();
-            EntityPlayer player = event.player;
+        EntityPlayer player = event.getPlayer();
+        if (!event.isCanceled() && player != null) {
+            Block block = event.getPlacedBlock().getBlock();
             if (block instanceof BlockSapling) {
                 KarmaRegistry.addKarma(player, 1);
             }

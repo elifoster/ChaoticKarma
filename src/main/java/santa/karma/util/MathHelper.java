@@ -7,7 +7,7 @@ import java.util.Random;
  */
 public class MathHelper {
     /**
-     * Gets a random integer either negative or positive. It substracts the initial random
+     * Gets a random integer either negative or positive. It subtracts the initial random
      * integer by half of the bounding integer, in order to allow for results ranging from -bound
      * to +bound. For example: randomNegOrPos(5, new Random()); would give results ranging from
      * -5 to +5.

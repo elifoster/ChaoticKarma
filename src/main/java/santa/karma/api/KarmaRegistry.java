@@ -11,13 +11,15 @@ import santa.karma.api.event.KarmaEventPositive;
 import santa.karma.api.perk.KarmaPerkNegative;
 import santa.karma.api.perk.KarmaPerkPositive;
 import santa.karma.gameevents.KarmaUpdateEvent;
-import santa.karma.player.ExtendedPlayer;
 import santa.karma.api.event.KarmaEventNegative;
+import santa.karma.player.IPlayerData;
+import santa.karma.util.EntityUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+@SuppressWarnings("unused")
 public class KarmaRegistry {
     /**
      * All of the registered negative events.
@@ -43,18 +45,18 @@ public class KarmaRegistry {
      * The resources this mod considers valuable. Includes default vanilla minecraft values.
      */
     public static ArrayList<ItemStack> valuablesGiveGoods = new ArrayList<ItemStack>() {{
-        add(new ItemStack(Items.diamond));
-        add(new ItemStack(Items.emerald));
-        add(new ItemStack(Items.iron_ingot));
-        add(new ItemStack(Items.gold_ingot));
-        add(new ItemStack(Items.gold_nugget));
-        add(new ItemStack(Items.skull));
-        add(new ItemStack(Items.redstone));
-        add(new ItemStack(Items.flint));
-        add(new ItemStack(Items.quartz));
-        add(new ItemStack(Items.coal));
-        add(new ItemStack(Blocks.web));
-        add(new ItemStack(Items.blaze_rod));
+        add(new ItemStack(Items.DIAMOND));
+        add(new ItemStack(Items.EMERALD));
+        add(new ItemStack(Items.IRON_INGOT));
+        add(new ItemStack(Items.GOLD_INGOT));
+        add(new ItemStack(Items.GOLD_NUGGET));
+        add(new ItemStack(Items.SKULL));
+        add(new ItemStack(Items.REDSTONE));
+        add(new ItemStack(Items.FLINT));
+        add(new ItemStack(Items.QUARTZ));
+        add(new ItemStack(Items.COAL));
+        add(new ItemStack(Blocks.WEB));
+        add(new ItemStack(Items.BLAZE_ROD));
     }};
 
     /**
@@ -69,14 +71,13 @@ public class KarmaRegistry {
      * @return The new amount of karma.
      */
     public static int addKarma(EntityPlayer player, int amount) {
-        ExtendedPlayer nbt = (ExtendedPlayer) player.getExtendedProperties(ChaoticKarma
-          .EXTENDEDPLAYER);
-        if (nbt.karma < ChaoticKarma.MAX_KARMA) {
-            int old = nbt.karma;
-            nbt.karma += amount;
-            MinecraftForge.EVENT_BUS.post(new KarmaUpdateEvent(old, amount, player, nbt.karma));
+        IPlayerData data = EntityUtil.getPlayerData(player);
+        int oldKarma = data.getKarma();
+        if (oldKarma < ChaoticKarma.MAX_KARMA) {
+            data.setKarma(oldKarma + amount);
+            MinecraftForge.EVENT_BUS.post(new KarmaUpdateEvent(oldKarma, amount, player, data.getKarma()));
         }
-        return nbt.karma;
+        return data.getKarma();
     }
 
     /**
@@ -86,14 +87,13 @@ public class KarmaRegistry {
      * @return The new amount of karma.
      */
     public static int removeKarma(EntityPlayer player, int amount) {
-        ExtendedPlayer nbt = (ExtendedPlayer) player.getExtendedProperties(ChaoticKarma
-          .EXTENDEDPLAYER);
-        if (nbt.karma > ChaoticKarma.MIN_KARMA) {
-            int old = nbt.karma;
-            nbt.karma -= amount;
-            MinecraftForge.EVENT_BUS.post(new KarmaUpdateEvent(old, amount, player, nbt.karma));
+        IPlayerData data = EntityUtil.getPlayerData(player);
+        int oldKarma = data.getKarma();
+        if (oldKarma > ChaoticKarma.MIN_KARMA) {
+            data.setKarma(oldKarma - amount);
+            MinecraftForge.EVENT_BUS.post(new KarmaUpdateEvent(oldKarma, amount, player, data.getKarma()));
         }
-        return nbt.karma;
+        return data.getKarma();
     }
 
     /**

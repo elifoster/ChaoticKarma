@@ -2,31 +2,35 @@ package santa.karma.api.perk;
 
 import net.minecraft.entity.player.EntityPlayer;
 import santa.karma.ChaoticKarma;
-import santa.karma.player.ExtendedPlayer;
+import santa.karma.player.IPlayerData;
+import santa.karma.util.EntityUtil;
+
+import java.util.ArrayList;
 
 public class KarmaPerkPositive extends KarmaPerk {
     @Override
     public void applyPerk(EntityPlayer player) {
-        ExtendedPlayer nbt = (ExtendedPlayer) player.getExtendedProperties(ChaoticKarma
-          .EXTENDEDPLAYER);
+        IPlayerData data = EntityUtil.getPlayerData(player);
         if (!hasPerk(player)) {
-            nbt.positivePerks.add(this);
+            ArrayList<KarmaPerkPositive> perks = data.getPositivePerks();
+            perks.add(this);
+            data.setPositivePerks(perks);
         }
     }
 
     @Override
     public void removePerk(EntityPlayer player) {
-        ExtendedPlayer nbt = (ExtendedPlayer) player.getExtendedProperties(ChaoticKarma
-          .EXTENDEDPLAYER);
+        IPlayerData data = EntityUtil.getPlayerData(player);
         if (hasPerk(player)) {
-            nbt.positivePerks.remove(this);
+            ArrayList<KarmaPerkPositive> perks = data.getPositivePerks();
+            perks.remove(this);
+            data.setPositivePerks(perks);
         }
     }
 
     @Override
     public boolean hasPerk(EntityPlayer player) {
-        ExtendedPlayer nbt = (ExtendedPlayer) player.getExtendedProperties(ChaoticKarma
-          .EXTENDEDPLAYER);
-        return nbt.positivePerks.contains(this);
+        IPlayerData data = EntityUtil.getPlayerData(player);
+        return data.getPositivePerks().contains(this);
     }
 }

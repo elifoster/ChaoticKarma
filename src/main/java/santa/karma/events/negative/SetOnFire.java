@@ -2,19 +2,19 @@ package santa.karma.events.negative;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.BlockPos;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import santa.karma.api.event.KarmaEventNegative;
 
 public class SetOnFire extends KarmaEventNegative {
     public SetOnFire() {
-        this.setRequiredKarmaLevel(150);
-        this.setKarmaChance(1100);
+        setRequiredKarmaLevel(150);
+        setKarmaChance(1100);
     }
 
     @Override
     public void doEvent(EntityPlayer player, World world) {
-        if (playerHasEnoughKarma(player) && canSetOnFire(player, world)) {
+        if (canSetOnFire(player, world)) {
             player.setFire(2);
         }
     }
@@ -24,7 +24,7 @@ public class SetOnFire extends KarmaEventNegative {
      * being set on fire, such as being near lava or in the nether.
      * @param player The player to check.
      * @param world The world.
-     * @return
+     * @return Whether the player might be afraid of being set on fire.
      */
     private boolean canSetOnFire(EntityPlayer player, World world) {
         if (player.dimension == -1) {
@@ -39,7 +39,7 @@ public class SetOnFire extends KarmaEventNegative {
             for (int j = -5; j <= 5; j++) {
                 for (int k = -5; k <= 5; k++) {
                     BlockPos pos = new BlockPos(x + i, y + j, z + k);
-                    if (world.getBlockState(pos).getBlock().getMaterial() == Material.lava) {
+                    if (world.getBlockState(pos).getMaterial() == Material.LAVA) {
                         return true;
                     }
                 }

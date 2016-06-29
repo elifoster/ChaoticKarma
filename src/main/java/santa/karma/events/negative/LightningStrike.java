@@ -7,17 +7,16 @@ import santa.karma.api.event.KarmaEventNegative;
 
 public class LightningStrike extends KarmaEventNegative {
     public LightningStrike() {
-        this.setRequiredKarmaLevel(200);
-        this.setKarmaChance(1500);
+        setRequiredKarmaLevel(200);
+        setKarmaChance(1500);
     }
 
     @Override
     public void doEvent(EntityPlayer player, World world) {
-        if (playerHasEnoughKarma(player)) {
-            double x = player.posX;
-            double y = player.posY;
-            double z = player.posZ;
-            world.spawnEntityInWorld(new EntityLightningBolt(world, x, y, z));
-        }
+        double x = player.posX;
+        double y = player.posY;
+        double z = player.posZ;
+        world.addWeatherEffect(new EntityLightningBolt(world, x, y, z, false));
+        System.out.println("big butts");
     }
 }

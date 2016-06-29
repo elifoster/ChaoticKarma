@@ -19,7 +19,7 @@ public interface IKarmaPerk {
     /**
      * Gets whether the player has the perk.
      * @param player The player to check.
-     * @return
+     * @return Whether they have the perk
      */
     boolean hasPerk(EntityPlayer player);
 
@@ -33,7 +33,7 @@ public interface IKarmaPerk {
      * Removes the perk from the player's extended player properties. This method is not actually
      * in use, due to some ConcurrentModificationExceptions and the replacement code involving
      * Iterators, but it is planned to change. For now, just use an iterator.
-     * @param player
+     * @param player The player
      */
     void removePerk(EntityPlayer player);
 }

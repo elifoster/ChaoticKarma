@@ -1,5 +1,6 @@
 package santa.karma.events;
 
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -7,7 +8,8 @@ import santa.karma.ChaoticKarma;
 import santa.karma.api.event.KarmaEventNegative;
 import santa.karma.api.KarmaRegistry;
 import santa.karma.api.event.KarmaEventPositive;
-import santa.karma.player.ExtendedPlayer;
+import santa.karma.player.IPlayerData;
+import santa.karma.util.EntityUtil;
 
 import java.util.Random;
 
@@ -15,24 +17,25 @@ import java.util.Random;
  * Handles spawning the events, both positive and negative.
  */
 public class EventSpawner {
+    public static final Random RANDOM = new Random();
     @SubscribeEvent
     public void tryPerformEvent(LivingEvent.LivingUpdateEvent event) {
-        Random random = new Random();
-        if (event.entityLiving instanceof EntityPlayer) {
-            ExtendedPlayer nbt = (ExtendedPlayer) event.entityLiving.getExtendedProperties
-              (ChaoticKarma.EXTENDEDPLAYER);
-            if (nbt.karma < ChaoticKarma.DEFAULT_KARMA) {
+        EntityLivingBase entityLiving = event.getEntityLiving();
+        if (entityLiving instanceof EntityPlayer) {
+            IPlayerData data = EntityUtil.getPlayerData((EntityPlayer) entityLiving);
+            if (data.getKarma() < ChaoticKarma.DEFAULT_KARMA) {
                 KarmaEventNegative karmaEvent = KarmaRegistry.eventNegatives.get
-                  (random.nextInt(KarmaRegistry.eventNegatives.size()));
-                if (random.nextInt(karmaEvent.getKarmaChance()) == 1) {
-                    karmaEvent.doEvent((EntityPlayer) event.entityLiving, event.entityLiving.worldObj);
+                  (RANDOM.nextInt(KarmaRegistry.eventNegatives.size()));
+                if (RANDOM.nextInt(karmaEvent.getKarmaChance()) == 1 &&
+                  karmaEvent.playerHasEnoughKarma((EntityPlayer) entityLiving)) {
+                    karmaEvent.doEvent((EntityPlayer) entityLiving, entityLiving.worldObj);
                 }
             } else {
-                KarmaEventPositive karmaEvent = KarmaRegistry.eventPositives.get(random.nextInt
+                KarmaEventPositive karmaEvent = KarmaRegistry.eventPositives.get(RANDOM.nextInt
                   (KarmaRegistry.eventPositives.size()));
-                if (random.nextInt(karmaEvent.getKarmaChance()) == 1) {
-                    karmaEvent.doEvent((EntityPlayer) event.entityLiving, event.entityLiving
-                      .worldObj);
+                if (RANDOM.nextInt(karmaEvent.getKarmaChance()) == 1 &&
+                  karmaEvent.playerHasEnoughKarma((EntityPlayer) entityLiving)) {
+                    karmaEvent.doEvent((EntityPlayer) entityLiving, entityLiving.worldObj);
                 }
             }
         }

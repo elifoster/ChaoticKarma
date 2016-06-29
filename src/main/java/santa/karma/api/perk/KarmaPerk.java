@@ -2,14 +2,19 @@ package santa.karma.api.perk;
 
 import net.minecraft.entity.player.EntityPlayer;
 import santa.karma.ChaoticKarma;
-import santa.karma.api.perk.IKarmaPerk;
-import santa.karma.player.ExtendedPlayer;
+
+import java.util.Random;
 
 /**
  * The KarmaPerk class contains default implementations for all perk-related methods EXCEPT
  * hasPerk and applyPerk, because they rely on the type of perk that it is.
  */
 public class KarmaPerk implements IKarmaPerk {
+    /**
+     * For all your RNG needs.
+     */
+    public static final Random RANDOM = new Random();
+
     /**
      * The level needed for the player to get this perk.
      */
@@ -23,19 +28,18 @@ public class KarmaPerk implements IKarmaPerk {
               ChaoticKarma.MAX_KARMA);
         }
 
-        this.levelNeeded = level;
+        levelNeeded = level;
     }
 
     @Override
     public int getRequiredKarmaLevel() {
-        return this.levelNeeded;
+        return levelNeeded;
     }
 
     /**
      * This method should never be used. Instead, use the implementation of it at
      * KarmaPerkPositive and KarmaPerkNegative.
      * @param player The player to check.
-     * @return
      */
     @Override
     public boolean hasPerk(EntityPlayer player) {
@@ -50,12 +54,11 @@ public class KarmaPerk implements IKarmaPerk {
     @Override
     public void applyPerk(EntityPlayer player) {}
 
+    /**
+     * This method should never be used. Instead, use the implementation of it at
+     * KarmaPerkPositive and KarmaPerkNegative.
+     * @param player The player.
+     */
     @Override
-    public void removePerk(EntityPlayer player) {
-        ExtendedPlayer nbt = (ExtendedPlayer) player.getExtendedProperties(ChaoticKarma
-          .EXTENDEDPLAYER);
-        if (hasPerk(player)) {
-            nbt.negativePerks.remove(this);
-        }
-    }
+    public void removePerk(EntityPlayer player) {}
 }

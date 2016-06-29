@@ -12,23 +12,23 @@ public class KarmaUpdateEvent extends Event {
     /**
      * The previous karma level that the player had. In other words, the amount BEFORE the event.
      */
-    public final int previousAmount;
+    private final int previousAmount;
 
     /**
      * The amount of karma being added to the player. Is null if updated through the command.
      * Code expecting null.
      */
-    public final Integer updateAmount;
+    private final Integer updateAmount;
 
     /**
      * The new amount of karma, or previousAmount + updateAmount.
      */
-    public final int newAmount;
+    private final int newAmount;
 
     /**
      * The player that the karma is being applied to.
      */
-    public final EntityPlayer player;
+    private final EntityPlayer player;
 
     /**
      * This constructor is for basic karma updates, typically through KarmaRegistry#addKarma and
@@ -55,8 +55,24 @@ public class KarmaUpdateEvent extends Event {
      */
     public KarmaUpdateEvent(int previousAmount, EntityPlayer player, int newAmount) {
         this.previousAmount = previousAmount;
-        this.updateAmount = null;
+        updateAmount = null;
         this.player = player;
         this.newAmount = newAmount;
+    }
+
+    public int getPreviousAmount() {
+        return previousAmount;
+    }
+
+    public Integer getUpdateAmount() {
+        return updateAmount;
+    }
+
+    public EntityPlayer getPlayer() {
+        return player;
+    }
+
+    public int getNewAmount() {
+        return newAmount;
     }
 }
