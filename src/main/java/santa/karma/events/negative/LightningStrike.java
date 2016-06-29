@@ -17,6 +17,5 @@ public class LightningStrike extends KarmaEventNegative {
         double y = player.posY;
         double z = player.posZ;
         world.addWeatherEffect(new EntityLightningBolt(world, x, y, z, false));
-        System.out.println("big butts");
     }
 }

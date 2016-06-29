@@ -1,7 +1,5 @@
 package santa.karma.api.event;
 
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.world.World;
 import santa.karma.ChaoticKarma;
 
 import java.util.Random;
@@ -10,8 +8,13 @@ import java.util.Random;
  * The KarmaEvent class contains default implementations for all event-related methods EXCEPT
  * playerHasEnoughKarma, because that relies on the type of event that it is, and doEvent,
  * because there is no default implementation needed for it.
+ *
+ * When you are creating new events, inherit KarmaEventNegative or KarmaEventPositive, NOT KarmaEvent.
+ *
+ * You must implement doEvent(EntityPlayer, World) when creating new events. All of the other methods have default
+ * implementations here, and in the according KarmaEventNegative/KarmaEventPositive classes.
  */
-public class KarmaEvent implements IKarmaEvent {
+public abstract class KarmaEvent implements IKarmaEvent {
     /**
      * For all your RNG needs.
      */
@@ -56,25 +59,4 @@ public class KarmaEvent implements IKarmaEvent {
     public int getKarmaChance() {
         return this.chance;
     }
-
-    /**
-     * This method should never be used. Instead, use the implementation of it at
-     * KarmaEventNegative or KarmaEventPositive.
-     * @param player The player
-     * @return
-     */
-    @Override
-    public boolean playerHasEnoughKarma(EntityPlayer player) {
-        return false;
-        // Default implementation, do not use this.
-    }
-
-    /**
-     * This method should never be used. Instead, use the implementation of it at
-     * KarmaEventPositive or KarmaEventNegative.
-     * @param player The player
-     * @param world The world.
-     */
-    @Override
-    public void doEvent(EntityPlayer player, World world) {}
 }

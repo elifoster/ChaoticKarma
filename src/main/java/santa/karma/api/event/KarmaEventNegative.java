@@ -5,7 +5,7 @@ import santa.karma.ChaoticKarma;
 import santa.karma.player.IPlayerData;
 import santa.karma.util.EntityUtil;
 
-public class KarmaEventNegative extends KarmaEvent {
+public abstract class KarmaEventNegative extends KarmaEvent {
     @Override
     public boolean playerHasEnoughKarma(EntityPlayer player) {
         IPlayerData data = EntityUtil.getPlayerData(player);

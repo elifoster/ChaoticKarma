@@ -1,6 +1,5 @@
 package santa.karma.api.perk;
 
-import net.minecraft.entity.player.EntityPlayer;
 import santa.karma.ChaoticKarma;
 
 import java.util.Random;
@@ -8,8 +7,11 @@ import java.util.Random;
 /**
  * The KarmaPerk class contains default implementations for all perk-related methods EXCEPT
  * hasPerk and applyPerk, because they rely on the type of perk that it is.
+ *
+ * When creating your own perks, do not inherit this class. Instead, inherit KarmaPerkNegative or KarmaPerkPositive.
+ * Those classes contain all of the hasPerk, removePerk, and applyPerk logic, so you won't need to implement your own.
  */
-public class KarmaPerk implements IKarmaPerk {
+public abstract class KarmaPerk implements IKarmaPerk {
     /**
      * For all your RNG needs.
      */
@@ -35,30 +37,4 @@ public class KarmaPerk implements IKarmaPerk {
     public int getRequiredKarmaLevel() {
         return levelNeeded;
     }
-
-    /**
-     * This method should never be used. Instead, use the implementation of it at
-     * KarmaPerkPositive and KarmaPerkNegative.
-     * @param player The player to check.
-     */
-    @Override
-    public boolean hasPerk(EntityPlayer player) {
-        return false;
-    }
-
-    /**
-     * This method should never be used. Instead, use the implementation of it at
-     * KarmaPerkPositive and KarmaPerkNegative.
-     * @param player The player.
-     */
-    @Override
-    public void applyPerk(EntityPlayer player) {}
-
-    /**
-     * This method should never be used. Instead, use the implementation of it at
-     * KarmaPerkPositive and KarmaPerkNegative.
-     * @param player The player.
-     */
-    @Override
-    public void removePerk(EntityPlayer player) {}
 }

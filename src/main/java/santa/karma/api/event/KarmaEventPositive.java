@@ -7,7 +7,7 @@ import santa.karma.util.EntityUtil;
 
 import java.util.Random;
 
-public class KarmaEventPositive extends KarmaEvent {
+public abstract class KarmaEventPositive extends KarmaEvent {
     @Override
     public boolean playerHasEnoughKarma(EntityPlayer player) {
         IPlayerData data = EntityUtil.getPlayerData(player);
