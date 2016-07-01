@@ -38,7 +38,7 @@ public class GainingKarmaHandler {
         // TODO: isBreedingItem and the taming item are different. Right now there is no way to check if an ItemStack is an animal's taming item.
         if (held != null && target instanceof EntityTameable) {
             EntityTameable tameableTarget = (EntityTameable) target;
-            if (!tameableTarget.isTamed() && tameableTarget.isBreedingItem(held)) {
+            if (EntityUtil.canTame(tameableTarget, held)) {
                 KarmaRegistry.addKarma(player, 1);
             }
         }
