@@ -30,7 +30,7 @@ import santa.karma.player.IPlayerData;
 import santa.karma.player.PlayerDataInitializer;
 import santa.karma.player.PlayerDataStorage;
 
-@Mod(name = "ChaoticKarma", modid = ChaoticKarma.MOD_ID, version = "2.0.0")
+@Mod(name = "ChaoticKarma", modid = ChaoticKarma.MOD_ID, version = "2.0.1", acceptedMinecraftVersions = "[1.9,1.10.2]")
 public class ChaoticKarma {
     public static final String MOD_ID = "chaotickarma";
     public static final int MAX_KARMA = 2000;
