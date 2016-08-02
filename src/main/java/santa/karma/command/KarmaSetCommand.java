@@ -18,7 +18,7 @@ import static santa.karma.ChaoticKarma.MIN_KARMA;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class KarmaSetCommand extends CommandBase {
+public class KarmaSetCommand extends CommandPlayerFirst {
     @Override
     public String getCommandName() {
         return "karmaset";
@@ -27,11 +27,6 @@ public class KarmaSetCommand extends CommandBase {
     @Override
     public String getCommandUsage(ICommandSender sender) {
         return "karmaset <player> <amount>";
-    }
-
-    @Override
-    public int getRequiredPermissionLevel() {
-        return 2;
     }
 
     @Override
@@ -55,10 +50,5 @@ public class KarmaSetCommand extends CommandBase {
             }
             sender.addChatMessage(message);
         }
-    }
-
-    @Override
-    public boolean isUsernameIndex(String[] args, int index) {
-        return index == 0;
     }
 }

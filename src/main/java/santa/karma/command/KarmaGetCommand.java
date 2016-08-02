@@ -3,16 +3,21 @@ package santa.karma.command;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.command.*;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import santa.karma.player.IPlayerData;
 import santa.karma.util.EntityUtil;
 
+import javax.annotation.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Collections;
+import java.util.List;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class KarmaGetCommand extends CommandBase {
+public class KarmaGetCommand extends CommandPlayerFirst {
     @Override
     public String getCommandName() {
         return "karmaget";
@@ -32,15 +37,5 @@ public class KarmaGetCommand extends CommandBase {
             IPlayerData data = EntityUtil.getPlayerData(target);
             sender.addChatMessage(new TextComponentTranslation("command.get", args[0], data.getKarma()));
         }
-    }
-
-    @Override
-    public int getRequiredPermissionLevel() {
-        return 2;
-    }
-
-    @Override
-    public boolean isUsernameIndex(String[] args, int index) {
-        return index == 0;
     }
 }
